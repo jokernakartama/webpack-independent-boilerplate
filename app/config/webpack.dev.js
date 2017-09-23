@@ -39,11 +39,11 @@ var plugins = [
 
 
 var rules = [
-  { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
-  { test: /\.scss$/, loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader'] },
-  { test: /\.sass$/, loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader'] },
-  { test: /\.less$/, loaders: ['style-loader', 'css-loader', 'less-loader', 'sass-loader', 'import-glob-loader'] },
-  { test: /\.styl$/, loaders: ['style-loader', 'css-loader', 'stylus-loader', 'import-glob-loader'] },
+  { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+  { test: /\.scss$/, use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader'] },
+  { test: /\.sass$/, use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader', 'import-glob-loader'] },
+  { test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader', 'sass-loader', 'import-glob-loader'] },
+  { test: /\.styl$/, use: ['style-loader', 'css-loader', 'stylus-loader', 'import-glob-loader'] },
 ]
 
 

@@ -50,7 +50,6 @@ var rules = [
   }
 ]
 
-
 var plugins = [
   // split vendor js into its own file
   new webpack.optimize.CommonsChunkPlugin({
@@ -109,10 +108,7 @@ var plugins = [
       }
     ]),
   new ExtractTextPlugin(path.posix.join(config.assetsSubDirectory, 'css/[name].[contenthash].css'), {allChunks: false})
-];
-
-
-
+]
 
 module.exports =  merge(webpackConfig, {
   devtool: 'source-map',

@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var webpackConfig = require('./webpack.common')
+var loaders = require('./loaders')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -15,37 +16,38 @@ var sourcePath = path.join(rootDir, 'source')
 var rules = [
   {
     test: /\.styl$/,
-    loader: ExtractTextPlugin.extract({
+    use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: 'css-loader!stylus-loader!import-glob-loader',
+      use: loaders(['css', 'postcss', 'stylus', 'import-glob'])
+      
     }),
   },
   {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract({
+    use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: 'css-loader!postcss-loader!sass-loader!import-glob-loader',
+      use: loaders(['css', 'postcss', 'scss', 'import-glob'])
     }),
   },
   {
     test: /\.sass$/,
-    loader: ExtractTextPlugin.extract({
+    use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: 'css-loader!postcss-loader!sass-loader!import-glob-loader',
+      use: loaders(['css', 'postcss', 'sass', 'import-glob'])
     }),
   },
   {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract({
+    use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: 'css-loader',
+      use: loaders(['css', 'postcss', 'import-glob'])
     }),
   },
   {
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract({
+    use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: 'css-loader!less-loader!import-glob-loader',
+      use: loaders(['css', 'postcss', 'less', 'import-glob'])
     }),
   }
 ]

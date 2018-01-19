@@ -2,8 +2,6 @@ var webpack = require('webpack')
 var path = require('path')
 // Extracts all css files in one
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-// Adds vendor prefixes in css
-var autoprefixer = require('autoprefixer')
 var nodeEnv = process.env.NODE_ENV || 'development'
 var isProduction = nodeEnv === 'production'
 // paths 
@@ -30,19 +28,6 @@ var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(nodeEnv),
-    },
-  }),
-  new webpack.LoaderOptionsPlugin({
-    options: {
-      postcss: [
-        autoprefixer({
-          browsers: [
-            'last 3 version',
-            'ie >= 10',
-          ],
-        }),
-      ],
-      context: sourcePath,
     },
   }),
   // prevents Webpack from outputting anything into a bundle on errors

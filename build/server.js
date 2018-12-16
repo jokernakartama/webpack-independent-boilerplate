@@ -1,26 +1,17 @@
-var config = require('./config/server.config')
-if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = 'development' // JSON.parse(config.dev.env.NODE_ENV)
-}
-var path = require('path')
-var rootDir = path.join(__dirname, '../')
-var sourcePath = path.join(rootDir, 'source')
-var ora = require('ora')
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
+var devMiddleware = require('webpack-dev-middleware')
+var hotMiddleware = require('webpack-hot-middleware')
+var ora = require('ora')
+var rootDir = path.join(__dirname, '../')
+var config = require('./config/server.config')
+var webpackConfig = require('./config/webpack.dev')
 
-// ora uses to show nice animation when a process needs time
 var spinner = ora({
-  text: 'Starting dev server...',
-  spinner: 'earth'
+  text: 'Starting dev server...'
 })
-
-// we don't need development enviroment when the app is testing
-var webpackConfig = process.env.NODE_ENV === 'testing'
-  ? require('./config/webpack.prod')
-  : require('./config/webpack.dev')
 
 var port = process.env.PORT || config.port
 // https://github.com/chimurai/http-proxy-middleware
@@ -30,8 +21,7 @@ var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
-  noInfo: true,
-  quiet: true
+  logLevel: 'silent'
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
@@ -43,7 +33,7 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
     hotMiddleware.publish({ action: 'reload' })
-    cb()
+    if (cb) cb()
   })
 })
 
@@ -68,12 +58,10 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.assetsPublicPath, config.assetsSubDirectory)
-app.use(staticPath, express.static(path.join(sourcePath, 'static')))
-
-var uri = 'http://0.0.0.0:' + port
+app.use(staticPath, express.static(path.join(rootDir, 'static')))
 
 var _resolve
-var readyPromise = new Promise(resolve => {
+var readyPromise = new Promise((resolve) => {
   _resolve = resolve
 })
 
@@ -81,11 +69,14 @@ spinner.start()
 
 devMiddleware.waitUntilValid(() => {
   spinner.stop()
-  console.log('Application started on ' + uri + '\n')
   _resolve()
 })
 
-var server = app.listen(port)
+var server = app.listen(port, (error) => {
+  if (error) {
+    console.log('\n', error)
+  }
+})
 
 module.exports = {
   ready: readyPromise,

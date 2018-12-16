@@ -1,8 +1,8 @@
 import hello from '../index.js'
 
-describe('hello', function () {
+describe('hello', () => {
   it('should return true', function () {
-    var helloResult = hello()
+    const helloResult = hello()
     expect(helloResult, 'hello()').to.be.true
   })
 })

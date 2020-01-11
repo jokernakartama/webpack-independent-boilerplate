@@ -3,7 +3,7 @@ var webpack = require('webpack')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var MiniCssExtractPlugin = require('mini-css-extract-plugin')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+var TerserPlugin = require('terser-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var webpackConfig = require('./webpack.common')
 var loaders = require('../loaders')
@@ -76,26 +76,14 @@ module.exports =  merge(webpackConfig, {
     },
     noEmitOnErrors: true,
     minimizer: [
-      new UglifyJsPlugin({
-        parallel: true,
+      new TerserPlugin({
         sourceMap: true,
-        uglifyOptions: {
-          compress: {
-            warnings: false,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true,
-          },
-          ie8: false,
+        terserOptions: {
           output: {
-            comments: false
-          }
-        }
+            comments: false,
+          },
+        },
+        extractComments: false
       })
     ]
   }

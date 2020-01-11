@@ -5,12 +5,7 @@ module.exports = {
   postcss: {
     plugins: [
       require('postcss-import')(),
-      require('autoprefixer')({
-        'browsers': [
-          'last 3 version',
-          'ie >= 9',
-        ]
-      }),
+      require('autoprefixer')(),
       require('cssnano')()
     ]
   }

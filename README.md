@@ -1,6 +1,6 @@
 # Webpack boilerplate with no dependencies
 
-Except `babel-polyfill`, sorry.
+Except polyfills, sorry.
 
 ## Usage
 
@@ -45,20 +45,19 @@ npm run watch
 
 ## Features
 
-* ES6 modules support
+* ES6 support
 * Tests: Karma test runner, Mocha, Chai and Sinon
 * CSS: PostCSS (autoprefixer, cssnano), Stylus, Sass, Less
 * [Globbing preloader for Webpack](https://github.com/Aintaer/import-glob-loader#readme)
-* ESLint standart
+* ESLint standard
 * Babel plugins:
     - plugin-proposal-class-properties
     - plugin-proposal-export-namespace-from
     - plugin-proposal-optional-chaining
     - plugin-syntax-dynamic-import
-    - plugin-transform-regenerator
-* Has only one dependency to add polyfills
+* Uses only two conditional dependencies to add polyfills
 * Some CLI eye candies
-* Hot reload, sure
+* Hot reload
 
 ## Configuration
 

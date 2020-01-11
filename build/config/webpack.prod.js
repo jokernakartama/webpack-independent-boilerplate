@@ -67,11 +67,16 @@ module.exports =  merge(webpackConfig, {
   optimization: {
     splitChunks: {
       cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
+        polyfills: {
+          test: /[\\/]node_modules[\\/](core-js|regenerator-runtime)[\\/]/,
+          name: 'polyfills',
+          chunks: 'all'
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/](?!(core-js|regenerator-runtime)[\\/])/,
           name: 'vendors',
           chunks: 'all'
-        }
+        },
       }
     },
     noEmitOnErrors: true,

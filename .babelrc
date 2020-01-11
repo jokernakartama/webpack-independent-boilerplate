@@ -1,17 +1,15 @@
 {
   "presets": [
-    ["@babel/env", {
+    ["@babel/preset-env", {
       "modules": false,
-      "targets": {
-        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
-      }
+      "useBuiltIns": "usage",
+      "corejs": { "version": 3, "proposals": true }
     }]
   ],
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-proposal-optional-chaining",
-    "@babel/plugin-transform-regenerator",
     "@babel/plugin-proposal-class-properties"
   ],
   "env": {
